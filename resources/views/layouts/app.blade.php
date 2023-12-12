@@ -79,7 +79,7 @@
                     infinite: true,
                     slidesToShow: 1,
                     slidesToScroll: 1
-                    // Додайте будь-які інші налаштування Slick за потребою
+                  
                 });
             });
         </script>

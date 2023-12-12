@@ -11,7 +11,7 @@ class EditController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth'); // Додайте middleware auth
+        $this->middleware('auth'); 
     }
 
     public function index()
@@ -26,7 +26,7 @@ class EditController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            // Ваші правила валідації ...
+            
         ]);
 
         $user->update([

@@ -5,7 +5,7 @@
         <section class="h-100 h-custom" style="padding: 50px; margin: 50px;">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-lg-20 col-xl-20"> <!-- Оновлений розмір колонки -->
+                    <div class="col-lg-20 col-xl-20"> 
                         <div class="card rounded-5">
                             <div class="card-body p-4 p-md-5">
                                 <h2 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Список Учасників</h2>
