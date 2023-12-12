@@ -1,15 +1,19 @@
 <?php
 
-
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class EditController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); // Додайте middleware auth
+    }
+
     public function index()
     {
         $user = Auth::user();
@@ -22,15 +26,7 @@ class EditController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'surname' => 'required|string|max:255',
-            'gender' => 'required|string|max:255',
-            'nationality' => 'required|string|max:255',
-            'organization_name' => 'required|string|max:255',
-            'position' => 'required|string|max:255',
-            'birthdate' => 'required|date',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-           
+            // Ваші правила валідації ...
         ]);
 
         $user->update([
@@ -42,11 +38,9 @@ class EditController extends Controller
             'position' => $request->position,
             'birthdate' => $request->birthdate,
             'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('participants.index')->with('success', 'Профіль успішно оновлено.');
-    }
-}
-
+        return redirect()->route('participants')->with('success', 'Профіль успішно оновлено.');
     }
 }

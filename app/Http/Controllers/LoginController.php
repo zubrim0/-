@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -28,16 +29,23 @@ class LoginController extends Controller
         ]);
 
         if (auth()->attempt($request->only('email', 'password'))) {
-            return redirect()->route('participants')->with('success', 'Ви успішно ввійшли!');
+            return redirect()->route('welcome')->with('success', 'Ви успішно ввійшли!');
         }
 
         return redirect()->back()->withErrors(['помилка' => 'Невірний email або пароль']);
     }
 
-    public function logout()
-    {
+public function logout(Request $request)
+{
+    if (auth()->check()) {
         Auth::logout();
-
-        return redirect('welcome')->with('success', 'Ви успішно вийшли з аккаунту.');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/welcome')->with('success', 'Ви успішно вийшли!');
+    } else {
+        return redirect('/welcome')->withErrors(['помилка' => 'Ви не ввійшли в аккаунт.']);
     }
+}
+
+
 }

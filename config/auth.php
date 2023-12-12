@@ -64,11 +64,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
@@ -111,5 +106,16 @@ return [
     */
 
     'password_timeout' => 10800,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Home Path
+    |--------------------------------------------------------------------------
+    |
+    | This is the path where users will be redirected after login.
+    |
+    */
+
+    'home' => env('HOME', '/dashboard'),
 
 ];

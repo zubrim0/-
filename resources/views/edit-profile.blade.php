@@ -1,78 +1,101 @@
-@extends('layouts\app')
+@extends('layouts/app')
 
 @section('content')
-    <div class="container mt-5">
-        <h2>Редагування профілю</h2>
-         <form method="post" action="{{ route('edit-profile.update') }}">
-            @csrf
+    <body style="background-color: #8fc4b7;">
+        <section class="h-100 h-custom" style="padding: 50px; margin: 50px;">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-lg-30 col-xl-20">
+                        <div class="card rounded-5">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+                                class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                                alt="Sample photo">
+                            <div class="card-body p-4 p-md-5">
+                                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Редагування профілю</h3>
 
-            <div class="mb-3">
-                <label for="name" class="form-label">Ім'я</label>
-                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $user->name }}" required>
-                @error('name')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+                                <form method="post" action="{{ route('edit-profile.submit') }}" class="px-md-2">
+                                    @csrf
 
-            <div class="mb-3">
-                <label for="surname" class="form-label">Прізвище</label>
-                <input type="text" name="surname" class="form-control @error('surname') is-invalid @enderror" value="{{ $user->surname }}" required>
-                @error('surname')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+                                    @php
+                                        $user = Auth::user();
+                                    @endphp
 
-            <div class="mb-3">
-                <label for="gender" class="form-label">Стать</label>
-                <select name="gender" class="form-select @error('gender') is-invalid @enderror" required>
-                    <option value="male" @if($user->gender === 'male') selected @endif>Чоловіча</option>
-                    <option value="female" @if($user->gender === 'female') selected @endif>Жіноча</option>
-                </select>
-                @error('gender')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="name">Ім'я</label>
+                                        <input type="text" id="name" name="name" class="form-control" required
+                                            value="{{ $user->name ?? old('name') }}" />
+                                    </div>
 
-            <div class="mb-3">
-                <label for="nationality" class="form-label">Національність</label>
-                <input type="text" name="nationality" class="form-control @error('nationality') is-invalid @enderror" value="{{ $user->nationality }}" required>
-                @error('nationality')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="surname">Прізвище</label>
+                                        <input type="text" id="surname" name="surname" class="form-control" required
+                                            value="{{ $user->surname ?? old('surname') }}" />
+                                    </div>
 
-            <div class="mb-3">
-                <label for="organization_name" class="form-label">Назва організації</label>
-                <input type="text" name="organization_name" class="form-control @error('organization_name') is-invalid @enderror" value="{{ $user->organization_name }}" required>
-                @error('organization_name')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="gender">Стать</label>
+                                        <select id="gender" name="gender" class="form-select" required>
+                                            <option value="" disabled selected>Оберіть стать</option>
+                                            <option value="male" {{ isset($user) && $user->gender === 'male' ? 'selected' : '' }}>
+                                                Чоловіча</option>
+                                            <option value="female" {{ isset($user) && $user->gender === 'female' ? 'selected' : '' }}>
+                                                Жіноча</option>
+                                        </select>
+                                    </div>
 
-            <div class="mb-3">
-                <label for="position" class="form-label">Посада</label>
-                <input type="text" name="position" class="form-control @error('position') is-invalid @enderror" value="{{ $user->position }}" required>
-                @error('position')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="nationality">Національність</label>
+                                        <input type="text" id="nationality" name="nationality" class="form-control" required
+                                            value="{{ $user->nationality ?? old('nationality') }}" />
+                                    </div>
 
-            <div class="mb-3">
-                <label for="birthdate" class="form-label">Дата народження</label>
-                <input type="date" name="birthdate" class="form-control @error('birthdate') is-invalid @enderror" value="{{ $user->birthdate }}" required>
-                @error('birthdate')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="organization_name">Назва Організації</label>
+                                        <input type="text" id="organization_name" name="organization_name" class="form-control" required
+                                            value="{{ $user->organization_name ?? old('organization_name') }}" />
+                                    </div>
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->email }}" required>
-                @error('email')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="position">Посада</label>
+                                        <input type="text" id="position" name="position" class="form-control" required
+                                            value="{{ $user->position ?? old('position') }}" />
+                                    </div>
+
+                                    <div class="row mb-4 pb-2 pb-md-5">
+                                        <div class="col-md-6">
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="birthdate">Дата народження</label>
+                                                <input type="date" id="birthdate" name="birthdate" class="form-control" required
+                                                    value="{{ $user->birthdate ?? old('birthdate') }}" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="email">Email</label>
+                                        <input type="email" id="email" name="email" class="form-control" required
+                                            value="{{ $user->email ?? old('email') }}" />
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="password">Новий пароль</label>
+                                        <input type="password" id="password" name="password" class="form-control" />
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="password_confirmation">Підтвердження пароля</label>
+                                        <input type="password" id="password_confirmation" name="password_confirmation"
+                                            class="form-control" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success btn-lg mb-1">Оновити профіль</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
- <			button type="submit" class="btn btn-primary">Оновити профіль</button>
-        </form>
-    </div>
+        </div>
+    </section>
+</body>
 @endsection

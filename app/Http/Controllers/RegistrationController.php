@@ -17,15 +17,15 @@ class RegistrationController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-    'name' => 'required|string|max:255',
-    'surname' => 'required|string|max:255',
-    'gender' => 'required|string|max:255',
-    'nationality' => 'required|string|max:255',
-    'organization_name' => 'required|string|max:255',
-    'position' => 'required|string|max:255',
-    'birthdate' => 'required|date',
-    'email' => 'required|string|email|max:255|unique:users,email', 
-    'password' => 'required|string|min:8|confirmed',
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'gender' => 'required|string|max:255',
+            'nationality' => 'required|string|max:255',
+            'organization_name' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+            'birthdate' => 'required|date',
+            'email' => 'required|string|email|max:255|unique:users,email', 
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = User::create([

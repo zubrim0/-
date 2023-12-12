@@ -10,8 +10,11 @@ class ParticipantsController extends Controller
     public function index()
     {
         $participants = User::all();
-       return view('participants', ['participants' => $participants]);
+        return view('participants', ['participants' => $participants]);
     }
+
+
+
 
     public function create()
     {
@@ -35,7 +38,7 @@ class ParticipantsController extends Controller
     public function edit($id)
     {
         $participant = User::findOrFail($id);
-        return view('participants.edit', ['participant' => $participant]);
+        return view('edit-profile', ['participant' => $participant]);
     }
 
     public function update(Request $request, $id)
